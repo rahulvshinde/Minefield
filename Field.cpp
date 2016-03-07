@@ -1,3 +1,4 @@
+//NAME : RAHUL SHINDE
 #include "Field.h"
 #include <iostream>
 #include <vector>
@@ -51,15 +52,46 @@ FieldType Field::get(int x, int y)
  bool Field::isSafe(int x, int y)
  {
  	//TODO: Complete this function, isSafe(int,int)
- 	return true;
+  bool status = false;
+  if(x < 0 || x >= FIELD_DIMENSION || y < 0 || y >= FIELD_DIMENSION)
+  {
+    throw "Out of bounds";
+  }
+  else
+  {
+    if(_map[x][y] == MINE_HIDDEN)
+    {
+      status = true;
+    }
+    else
+    {
+      status = false;
+    }
+  }
+ 	return status;
  }
 
 /**
- * Changes the location from EMPTY_HIDDEN to EMPTY_SHOWN for the 
+ * Changes the location from EMPTY_HIDDEN to EMPTY_SHOWN for the
  * location and any valid locations adjacent (immediately above,
  * below, left, or right as printed) to the provided (x,y) location
 **/
 void Field::revealAdjacent(int x, int y)
 {
 	//TODO: Complete this function, revealAdjacent(int,int)
+  if(x < 0 || x >= FIELD_DIMENSION || y < 0 || y >= FIELD_DIMENSION)
+  {
+    throw "Out of bounds";
+  }
+  else
+  {
+  if(_map[x+1][y] == EMPTY_HIDDEN)
+    _map[x+1][y] = EMPTY_SHOWN;
+  else if(_map[x-1][y] == EMPTY_HIDDEN)
+    _map[x-1][y] = EMPTY_SHOWN;
+  else if(_map[x][y+1] == EMPTY_HIDDEN)
+    _map[x][y+1] = EMPTY_SHOWN;
+  else if(_map[x][y-1] == EMPTY_HIDDEN)
+    _map[x][y-1] = EMPTY_SHOWN;
+  }
 }
