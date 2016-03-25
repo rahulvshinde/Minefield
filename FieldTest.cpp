@@ -42,17 +42,10 @@ TEST(FieldTest, isSafeBoom)
 TEST(FieldTest, isSafeOutOfBounds)
 {
 	Field minefield;
-	bool except = false;
-	try
-	{
-		bool safe;
-		safe = minefield.isSafe(-1,11);
-	}
-	catch(...)
-	{
-		except = true;
-	}
-	ASSERT_TRUE(except);
+
+	bool safe;
+	safe = minefield.isSafe(-1,11);
+	ASSERT_FALSE(safe);
 }
 
 TEST(FieldTest, revealAdjacentEmptyAllShown)
@@ -80,3 +73,23 @@ TEST(FieldTest, revealAdjacentFirstRowEmpty)
 	ASSERT_EQ( EMPTY_HIDDEN, minefield.get(0,0) );
 	ASSERT_EQ( MINE_HIDDEN, minefield.get(1,0) );
 }
+
+TEST(FieldTest, revealAdjacentShowMine)
+{
+	Field minefield;
+	for(int y=0; y<10; y++)
+	{	
+		minefield.placeMine(1,y);
+	}	
+  	minefield.placeShowMine(2,0);
+	minefield.revealAdjacent(2,0);
+    ASSERT_EQ( MINE_SHOWN, minefield.get(2,0) );
+}
+
+
+
+
+
+
+
+
